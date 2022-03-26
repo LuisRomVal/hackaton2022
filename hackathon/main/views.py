@@ -6,13 +6,13 @@ def index(request):
     return HttpResponse("bye, world :(")
     
 
-def enviar_solicitud(response):
+def enviar_solicitud(request):
     correo = "hackathonestic@gmail.com"
     password = "estic1234"
 
     target = "https://www.facebook.com/SackariasValdez"
-
-    driver = webdriver.Chrome("C:/Users/ale/Documents/uni/octavo_semestre/hackaton2022/selenium/chromedriver/chromedriver/chromedriver.exe")
+    path_webdriver = request.GET.get('webdriver')
+    driver = webdriver.Chrome(path_webdriver)
     driver.get("https://www.facebook.com")
 
     email_field = driver.find_element_by_name("email")
@@ -32,3 +32,4 @@ def enviar_solicitud(response):
 
     botones = driver.find_elements_by_css_selector("[aria-label=Agregar]")
     botones[0].click()
+    return HttpResponse("solicitud enviada con exito")
